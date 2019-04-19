@@ -107,7 +107,7 @@ void MainWindow::setImage(QFileInfo targetFile)
     {
         mov = new QMovie(targetFile.filePath());
         ui->imageView->setMovie(mov);
-        ui->imageView->setScaledContents(true);
+        ui->imageView->setScaledContents(false);
 
         //임시로 사이즈변경을 위해 Pixmap으로도 불러옴
         buf.load(targetFile.filePath());
@@ -121,10 +121,8 @@ void MainWindow::setImage(QFileInfo targetFile)
         img.load(targetFile.filePath());
         buf = QPixmap::fromImage(img);
 
-
-        //추가기능2 이미지 리졸루징해서 선출력
         ui->imageView->setPixmap(buf);
-        ui->imageView->setScaledContents(true);
+        ui->imageView->setScaledContents(false);
         bufSize = buf.size();
 
     }
@@ -149,11 +147,10 @@ void MainWindow::resizeEvent(QResizeEvent *)
 
     if(mov != nullptr)
     {
-      ui->imageView->setMovie(mov);
+        ui->imageView->setMovie(mov);
     }
     else
     {
-        //ui->imageView->setPixmap(bufS);
         ui->imageView->setPixmap(buf);
     }
 
