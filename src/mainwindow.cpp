@@ -278,9 +278,6 @@ void MainWindow::on_btnNext_clicked()
         targetFile.setFile(targetFile.path()+"/"+dirFileList.value(0));
     }
     setImage(targetFile);
-
-    ui->imageView->setPixmap(bufN);
-    setImage(targetFileN);
 }
 
 void MainWindow::on_btnQuit_clicked()
