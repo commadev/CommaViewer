@@ -107,6 +107,7 @@ void MainWindow::setImage(QFileInfo targetFile)
     {
         mov = new QMovie(targetFile.filePath());
         ui->imageView->setMovie(mov);
+        //이미지 창에 맞춤
         ui->imageView->setScaledContents(false);
 
         //임시로 사이즈변경을 위해 Pixmap으로도 불러옴
@@ -123,6 +124,9 @@ void MainWindow::setImage(QFileInfo targetFile)
 
         ui->imageView->setPixmap(buf);
         ui->imageView->setScaledContents(false);
+
+        //이미지를 창에맞춤 비율유지
+        ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
         bufSize = buf.size();
 
     }
@@ -140,7 +144,7 @@ void MainWindow::resizeEvent(QResizeEvent *)
     ui->btnQuit->setGeometry(this->geometry().width()-30,0,30,30); //임시
     ui->imgQuit->setGeometry(this->geometry().width()-30,0,30,30); //임시
 
-    //ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
+    ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
     ui->btnPrevious->setGeometry(0, 30, this->geometry().width()/2, this->geometry().height()-50);
     ui->btnNext->setGeometry(this->geometry().width()/2, 30, this->geometry().width()/2, this->geometry().height()-50);
     ui->txtTitle->setGeometry(0, 0, 200, 30);
@@ -154,12 +158,12 @@ void MainWindow::resizeEvent(QResizeEvent *)
         ui->imageView->setPixmap(buf);
     }
 
-    /*if(mov != NULL)
+    if(mov != nullptr)
     {
         if(mov->scaledSize().width() + 30 > ui->verticalLayoutWidget->width() || mov->scaledSize().height() + 30 > ui->verticalLayoutWidget->height())
         {
-            //bufSize.scale(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio);
-            //mov->setScaledSize(bufSize);
+            bufSize.scale(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio);
+            mov->setScaledSize(bufSize);
             //mov->setScaledSize(QSize(QSize().scale(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio)));
             ui->imageView->setMovie(mov);
         }
@@ -167,7 +171,7 @@ void MainWindow::resizeEvent(QResizeEvent *)
     else if(buf.width() + 30 > ui->verticalLayoutWidget->width() || buf.height() + 30 > ui->verticalLayoutWidget->height())
     {
         ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
-    }*/
+    }
 }
 
 
