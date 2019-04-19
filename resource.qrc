@@ -1,9 +1,0 @@
-<RCC>
-    <qresource prefix="/imgs">
-        <file>left.png</file>
-        <file>myapp.ico</file>
-        <file>myapp.png</file>
-        <file>right.png</file>
-        <file>x.png</file>
-    </qresource>
-</RCC>
