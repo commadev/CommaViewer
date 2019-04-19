@@ -26,17 +26,11 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    main.cpp \
-    mainwindow.cpp
+        mainwindow.cpp
 
 
 HEADERS += \
-        mainwindow.h \
-    mainwindow.h \
-    mainwindow.h
+        mainwindow.h
 
 FORMS += \
         mainwindow.ui
@@ -46,7 +40,7 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32:RC_ICONS += myappico.ico
+win32:RC_ICONS += myapp.ico
 
 DISTFILES +=
 

@@ -51,7 +51,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QMovie *mov;
+    QMovie *mov = nullptr;
     QPixmap buf;
     QFileInfo targetFile;
     QFileInfo targetFileP;
