@@ -20,24 +20,13 @@ MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
     //타이틀바 제거
 
     setWindowFlag(Qt::FramelessWindowHint);
-
-
-
-
     setAttribute(Qt::WA_TranslucentBackground,true);
     setAttribute(Qt::WA_NoSystemBackground,false);
-
-    ui->verticalLayout->setAlignment(Qt::AlignHCenter);
-
-
-
-
-
+    ui->verticalLayout->setAlignment(Qt::AlignHCenter); //중앙정렬
 
     //버튼 커서아이콘 어플리케이션패스 + 파일명
     ui->btnNext->setCursor(QPixmap(":/imgs/right.png"));
     ui->btnPrevious->setCursor(QPixmap(":/imgs/left.png"));
-
     ui->imgQuit->setPixmap(QPixmap(":/imgs/x.png")); //임시
 
     //키이벤트 -> Previous, Next버튼 호출
@@ -46,14 +35,12 @@ MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
     new QShortcut(QKeySequence(Qt::Key_F7), this, SLOT(view()));
     new QShortcut(QKeySequence(Qt::Key_F8), this, SLOT(unview()));
 
-
-
-
-
     //argc가 1이면 (인자없이 실행되면) 다이얼로그 실행
     if (isExist == 1)
     {
+        printf_s("ss");
         QString fileURL = QFileDialog::getOpenFileName(this, tr("Choose a Picture"), tr("./test"), tr("Images (*.bmp *.png *.jpeg *.jpg, *.gif)"));
+
         if (fileURL == nullptr)
         {
             this->close();
@@ -70,17 +57,17 @@ MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
         setImage(targetFile);
     }
 
-
-
-
 }
+
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-bool static isMouseDown; //스태틱으로
+
+
+bool static isMouseDown = false; //스태틱으로
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
@@ -148,11 +135,11 @@ void MainWindow::setImage(QFileInfo targetFile)
 }
 
 //리사이즈 이벤트 -> 레이아웃 크기 리사이징
+
 void MainWindow::resizeEvent(QResizeEvent *)
 {
 
     ui->verticalLayoutWidget->setGeometry(QRect(0,30,this->geometry().width(),this->geometry().height()-50));
-
 
     ui->btnQuit->setGeometry(this->geometry().width()-30,0,30,30); //임시
     ui->imgQuit->setGeometry(this->geometry().width()-30,0,30,30); //임시
@@ -161,15 +148,6 @@ void MainWindow::resizeEvent(QResizeEvent *)
     ui->btnPrevious->setGeometry(0, 30, this->geometry().width()/2, this->geometry().height()-50);
     ui->btnNext->setGeometry(this->geometry().width()/2, 30, this->geometry().width()/2, this->geometry().height()-50);
     ui->txtTitle->setGeometry(0, 0, 200, 30);
-
-    if(mov != nullptr)
-    {
-        ui->imageView->setMovie(mov);
-    }
-    else
-    {
-        ui->imageView->setPixmap(buf);
-    }
 
     if(mov != nullptr)
     {
@@ -185,6 +163,7 @@ void MainWindow::resizeEvent(QResizeEvent *)
     {
         ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
     }
+
 }
 
 
@@ -216,6 +195,12 @@ void MainWindow::wheelEvent(QWheelEvent *event)
 }
 
 
+
+
+
+
+
+//F7 F8
 void MainWindow::view()
 {
     ui->txtTitle->hide();
@@ -247,6 +232,14 @@ void MainWindow::unview()
     repaint();
 }
 
+
+
+
+
+
+
+
+//버튼목록
 void MainWindow::on_btnPrevious_clicked()
 {
     QDir targetFileDir(targetFile.path());
