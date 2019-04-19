@@ -97,10 +97,10 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event) {
 //setImage함수정의
 void MainWindow::setImage(QFileInfo targetFile)
 {
-    if(mov != NULL)
+    if(mov != nullptr)
     {
         mov->stop();
-        mov = NULL;
+        mov = nullptr;
     }
 
     if(targetFile.suffix() == "gif")
@@ -147,7 +147,7 @@ void MainWindow::resizeEvent(QResizeEvent *)
     ui->btnNext->setGeometry(this->geometry().width()/2, 30, this->geometry().width()/2, this->geometry().height()-50);
     ui->txtTitle->setGeometry(0, 0, 200, 30);
 
-    if(mov != NULL)
+    if(mov != nullptr)
     {
       ui->imageView->setMovie(mov);
     }
@@ -188,7 +188,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
     {
 
         bufSize.scale(bufSize.width() + numDegrees.ry(),bufSize.height() + numDegrees.ry(),Qt::KeepAspectRatio);
-        if(mov != NULL)
+        if(mov != nullptr)
         {
             mov->setScaledSize(bufSize);
             ui->imageView->setMovie(mov);
