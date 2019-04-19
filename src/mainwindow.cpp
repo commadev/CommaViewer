@@ -10,7 +10,6 @@
 #include <QMovie>
 
 
-
 MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -36,10 +35,10 @@ MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
 
 
     //버튼 커서아이콘 어플리케이션패스 + 파일명
-    ui->btnNext->setCursor(QPixmap(QApplication::applicationDirPath() + "//right.png"));
-    ui->btnPrevious->setCursor(QPixmap(QApplication::applicationDirPath() + "//left.png"));
+    ui->btnNext->setCursor(QPixmap(":/imgs/right.png"));
+    ui->btnPrevious->setCursor(QPixmap(":/imgs/left.png"));
 
-    ui->imgQuit->setPixmap(QPixmap(QApplication::applicationDirPath() + "//x.png")); //임시
+    ui->imgQuit->setPixmap(QPixmap(":/imgs/x.png")); //임시
 
     //키이벤트 -> Previous, Next버튼 호출
     new QShortcut(QKeySequence(Qt::Key_Left), this, SLOT(on_btnPrevious_clicked()));
@@ -47,14 +46,27 @@ MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
     new QShortcut(QKeySequence(Qt::Key_F7), this, SLOT(view()));
     new QShortcut(QKeySequence(Qt::Key_F8), this, SLOT(unview()));
 
-    //argv[1]에서 받아온 인자값을 target으로
-    targetFile.setFile(filePath[1]);
-    setImage(targetFile);
+
+
+
 
     //argc가 1이면 (인자없이 실행되면) 다이얼로그 실행
     if (isExist == 1)
     {
-        targetFile.setFile(QFileDialog::getOpenFileName(this, tr("Choose a Picture"), tr("./test"), tr("Images (*.bmp *.png *.jpeg *.jpg, *.gif)")));
+        QString fileURL = QFileDialog::getOpenFileName(this, tr("Choose a Picture"), tr("./test"), tr("Images (*.bmp *.png *.jpeg *.jpg, *.gif)"));
+        if (fileURL == nullptr)
+        {
+            this->close();
+        }
+        else
+        {
+            targetFile.setFile(fileURL);
+            setImage(targetFile);
+        }
+    }
+    else
+    {
+        targetFile.setFile(filePath[1]); //argv[1]에서 받아온 인자값을 target으로
         setImage(targetFile);
     }
 
@@ -68,7 +80,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-bool isMouseDown;
+bool static isMouseDown; //스태틱으로
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
@@ -81,6 +93,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
    isMouseDown = false;
+   Q_UNUSED(event); //이벤트 사용안할때 이렇게함
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event) {
