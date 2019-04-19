@@ -123,67 +123,11 @@ void MainWindow::setImage(QFileInfo targetFile)
 
 
         //추가기능2 이미지 리졸루징해서 선출력
-        bufS = buf.scaled(img.size().width()/3,img.size().height()/3);
-        bufS = bufS.scaled(img.size().width(),img.size().height());
-        ui->imageView->setPixmap(bufS);
         ui->imageView->setPixmap(buf);
-
         ui->imageView->setScaledContents(true);
-
         bufSize = buf.size();
 
-
-        if(buf.width() + 30 > this->width() || buf.height() + 30 > this->height())
-        {
-            ui->imageView->setPixmap(bufS.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
-        }
-
     }
-
-
-
-    //추가기능1 미리불러오기
-
-
-    QDir targetFileDir(targetFile.path());
-    QStringList dirFileList;
-
-    //현재 dir 의 모든 이미지파일의 이름을 List에 저장한다
-    dirFileList = targetFileDir.entryList(QStringList() << "*.jpg" << "*.JPG" << "*.png" << "*.PNG" << "*.gif" << "*.GIF",QDir::Files);
-
-    if(dirFileList.indexOf(targetFile.fileName()) > 0)
-    {
-        //targetFileP을 새로 설정한다 기존파일path + / + 이전파일 name
-        //이전파일 = List내의 현재파일의 index -1
-        targetFileP.setFile(targetFile.path()+"/"+dirFileList.value(dirFileList.indexOf(targetFile.fileName())-1));
-    }
-    else
-    {
-        //targetFileP의 index가 0이하이면 list의 마지막 파일로 돌아간다
-        //마지막파일 = List의 길이 -1
-        targetFileP.setFile(targetFile.path()+"/"+dirFileList.value(dirFileList.length()-1));
-    }
-
-    img.load(targetFileP.filePath());
-    bufP = QPixmap::fromImage(img);
-
-    //NExt쪽도 마찬가지
-    if(dirFileList.indexOf(targetFile.fileName()) < dirFileList.length()-1)
-    {
-        targetFileN.setFile(targetFile.path()+"/"+dirFileList.value(dirFileList.indexOf(targetFile.fileName())+1));
-    }
-    else
-    {
-        targetFileN.setFile(targetFile.path()+"/"+dirFileList.value(0));
-    }
-
-    img.load(targetFileN.filePath());
-    bufN = QPixmap::fromImage(img);
-
-
-    //추가기능2 이미지 리졸루징
-    img.scaled(img.width()/2,img.height()/2);
-
 
 
 }
@@ -291,8 +235,6 @@ void MainWindow::unview()
 
 void MainWindow::on_btnPrevious_clicked()
 {
-
-    /*
     QDir targetFileDir(targetFile.path());
     QStringList dirFileList;
 
@@ -314,23 +256,13 @@ void MainWindow::on_btnPrevious_clicked()
         //마지막파일 = List의 길이 -1
         targetFile.setFile(targetFile.path()+"/"+dirFileList.value(dirFileList.length()-1));
     }
-
     setImage(targetFile);
-
-    */
-
-
-    //추가기능 미리불러오기용 함수
-    ui->imageView->setPixmap(bufP);
-    setImage(targetFileP);
 }
 
 
 
 void MainWindow::on_btnNext_clicked()
 {
-
-    /*
     QDir targetFileDir(targetFile.path());
     QStringList dirFileList;
 
@@ -346,7 +278,6 @@ void MainWindow::on_btnNext_clicked()
         targetFile.setFile(targetFile.path()+"/"+dirFileList.value(0));
     }
     setImage(targetFile);
-    */
 
     ui->imageView->setPixmap(bufN);
     setImage(targetFileN);
