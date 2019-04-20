@@ -58,6 +58,7 @@ private:
     QFileInfo targetFileN;
     QImage img;
     QSize bufSize;
+    QSize bufResize;
 
 };
 

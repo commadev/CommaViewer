@@ -24,6 +24,7 @@ MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
     setAttribute(Qt::WA_NoSystemBackground,false);
     ui->verticalLayout->setAlignment(Qt::AlignHCenter); //중앙정렬
 
+
     //버튼 커서아이콘 어플리케이션패스 + 파일명
     ui->btnNext->setCursor(QPixmap(":/imgs/right.png"));
     ui->btnPrevious->setCursor(QPixmap(":/imgs/left.png"));
@@ -106,31 +107,48 @@ void MainWindow::setImage(QFileInfo targetFile)
     if(targetFile.suffix() == "gif")
     {
         mov = new QMovie(targetFile.filePath());
-        ui->imageView->setMovie(mov);
-        //이미지 창에 맞춤
-        ui->imageView->setScaledContents(false);
-
-        //임시로 사이즈변경을 위해 Pixmap으로도 불러옴
         buf.load(targetFile.filePath());
+        ui->imageView->setFixedSize(buf.size());
+
+        ui->imageView->setMovie(mov);
+
 
         mov->start();
         bufSize = buf.size();
-
+        ui->imageView->setScaledContents(true);
     }
     else
     {
         img.load(targetFile.filePath());
         buf = QPixmap::fromImage(img);
 
+        ui->imageView->setFixedSize(img.size());
         ui->imageView->setPixmap(buf);
-        ui->imageView->setScaledContents(false);
+        bufSize = buf.size();
+        ui->imageView->setScaledContents(true);
 
         //이미지를 창에맞춤 비율유지
-        ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
-        bufSize = buf.size();
-
+        //ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
     }
 
+
+    bufResize = bufSize;
+    if(mov != nullptr)
+    {
+        if(bufSize.width() + 30 > ui->verticalFrame->width() || bufSize.height() + 30 > ui->verticalFrame->height())
+        {
+            bufResize.scale(ui->verticalFrame->width() - 30 , ui->verticalFrame->height() - 30, Qt::KeepAspectRatio);
+            ui->imageView->setFixedSize(bufResize);
+            ui->imageView->setMovie(mov);
+        }
+    }
+    else if(bufSize.width() + 30 > ui->verticalFrame->width() || bufSize.height() + 30 > ui->verticalFrame->height())
+    {
+        bufResize.scale(ui->verticalFrame->width() - 30, ui->verticalFrame->height() - 30, Qt::KeepAspectRatio);
+        ui->imageView->setFixedSize(bufResize);
+        ui->imageView->setPixmap(buf);
+        //ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
+    }
 
 }
 
@@ -139,29 +157,34 @@ void MainWindow::setImage(QFileInfo targetFile)
 void MainWindow::resizeEvent(QResizeEvent *)
 {
 
-    ui->verticalLayoutWidget->setGeometry(QRect(0,30,this->geometry().width(),this->geometry().height()-50));
+    bufResize = bufSize;
+    //ui->verticalLayoutWidget->setGeometry(QRect(0,30,this->geometry().width(),this->geometry().height()-50));
+    ui->verticalFrame->setGeometry(0,20,this->geometry().width(),this->geometry().height()-40);
+    //ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
 
     ui->btnQuit->setGeometry(this->geometry().width()-30,0,30,30); //임시
     ui->imgQuit->setGeometry(this->geometry().width()-30,0,30,30); //임시
 
-    ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
+    //ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
     ui->btnPrevious->setGeometry(0, 30, this->geometry().width()/2, this->geometry().height()-50);
     ui->btnNext->setGeometry(this->geometry().width()/2, 30, this->geometry().width()/2, this->geometry().height()-50);
     ui->txtTitle->setGeometry(0, 0, 200, 30);
 
     if(mov != nullptr)
     {
-        if(mov->scaledSize().width() + 30 > ui->verticalLayoutWidget->width() || mov->scaledSize().height() + 30 > ui->verticalLayoutWidget->height())
+        if(bufSize.width() + 30 > ui->verticalFrame->width() || bufSize.height() + 30 > ui->verticalFrame->height())
         {
-            bufSize.scale(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio);
-            mov->setScaledSize(bufSize);
-            //mov->setScaledSize(QSize(QSize().scale(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio)));
+            bufResize.scale(ui->verticalFrame->width() - 30 , ui->verticalFrame->height() - 30, Qt::KeepAspectRatio);
+            ui->imageView->setFixedSize(bufResize);
             ui->imageView->setMovie(mov);
         }
     }
-    else if(buf.width() + 30 > ui->verticalLayoutWidget->width() || buf.height() + 30 > ui->verticalLayoutWidget->height())
+    else if(bufSize.width() + 30 > ui->verticalFrame->width() || bufSize.height() + 30 > ui->verticalFrame->height())
     {
-        ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
+        bufResize.scale(ui->verticalFrame->width() - 30, ui->verticalFrame->height() - 30, Qt::KeepAspectRatio);
+        ui->imageView->setFixedSize(bufResize);
+        ui->imageView->setPixmap(buf);
+        //ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
     }
 
 }
@@ -173,23 +196,14 @@ void MainWindow::wheelEvent(QWheelEvent *event)
 
     QPoint numDegrees = event->angleDelta() / 8;
 
-    if(numDegrees.ry() > 0 && (ui->verticalLayoutWidget->width() < bufSize.width() +30 || ui->verticalLayoutWidget->height() < bufSize.height()+30) )
+    if(numDegrees.ry() > 0 && (ui->verticalFrame->width() < ui->imageView->size().width() +30 || ui->verticalFrame->height() < ui->imageView->size().height()+30) )
     {
-        buf.size() = ui->verticalLayoutWidget->size();
+
     }
     else if (!numDegrees.isNull())
     {
-
-        bufSize.scale(bufSize.width() + numDegrees.ry(),bufSize.height() + numDegrees.ry(),Qt::KeepAspectRatio);
-        if(mov != nullptr)
-        {
-            mov->setScaledSize(bufSize);
-            ui->imageView->setMovie(mov);
-        }
-        else
-        {
-            ui->imageView->setPixmap(buf.scaled(bufSize));
-        }
+        bufSize.scale(ui->imageView->size().width() + numDegrees.ry(), ui->imageView->size().height() + numDegrees.ry(),Qt::KeepAspectRatio);
+        ui->imageView->setFixedSize(bufSize);
     }
     event->accept();
 }
