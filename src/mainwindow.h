@@ -46,8 +46,9 @@ private slots:
 
     void unview();
 
-
     void on_btnQuit_clicked();
+
+    void alwaysOnTop();
 
 private:
     Ui::MainWindow *ui;

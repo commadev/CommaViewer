@@ -161,7 +161,7 @@ background:rgba(0,0,0,.0)
      </size>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Box</enum>
+     <enum>QFrame::NoFrame</enum>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <property name="spacing">
@@ -200,7 +200,7 @@ background:rgba(0,0,0,.0)
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

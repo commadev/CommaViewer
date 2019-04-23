@@ -35,6 +35,8 @@ MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
     new QShortcut(QKeySequence(Qt::Key_Right), this, SLOT(on_btnNext_clicked()));
     new QShortcut(QKeySequence(Qt::Key_F7), this, SLOT(view()));
     new QShortcut(QKeySequence(Qt::Key_F8), this, SLOT(unview()));
+    new QShortcut(QKeySequence(Qt::Key_F6), this, SLOT(alwaysOnTop()));
+
 
     //argc가 1이면 (인자없이 실행되면) 다이얼로그 실행
     if (isExist == 1)
@@ -159,7 +161,7 @@ void MainWindow::resizeEvent(QResizeEvent *)
 
     bufResize = bufSize;
     //ui->verticalLayoutWidget->setGeometry(QRect(0,30,this->geometry().width(),this->geometry().height()-50));
-    ui->verticalFrame->setGeometry(0,20,this->geometry().width(),this->geometry().height()-40);
+    ui->verticalFrame->setGeometry(0,20,this->geometry().width(),this->geometry().height()-20);
     //ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
 
     ui->btnQuit->setGeometry(this->geometry().width()-30,0,30,30); //임시
@@ -196,15 +198,18 @@ void MainWindow::wheelEvent(QWheelEvent *event)
 
     QPoint numDegrees = event->angleDelta() / 8;
 
+    bufSize.scale(ui->imageView->size().width() + numDegrees.ry(), ui->imageView->size().height() + numDegrees.ry(),Qt::KeepAspectRatio);
+    ui->imageView->setFixedSize(bufSize);
+    /*
     if(numDegrees.ry() > 0 && (ui->verticalFrame->width() < ui->imageView->size().width() +30 || ui->verticalFrame->height() < ui->imageView->size().height()+30) )
     {
 
     }
     else if (!numDegrees.isNull())
     {
-        bufSize.scale(ui->imageView->size().width() + numDegrees.ry(), ui->imageView->size().height() + numDegrees.ry(),Qt::KeepAspectRatio);
-        ui->imageView->setFixedSize(bufSize);
+
     }
+    */
     event->accept();
 }
 
@@ -246,11 +251,25 @@ void MainWindow::unview()
     repaint();
 }
 
+void MainWindow::alwaysOnTop()
+{
+
+    Qt::WindowFlags wFlag = windowFlags();
 
 
+    if (wFlag != -2012940287)
+    {
+        wFlag |= Qt:: WindowStaysOnTopHint;
+        //ui->imageView->setText((QString)wFlag);
 
-
-
+    }
+    else
+    {
+        wFlag &= ~Qt:: WindowStaysOnTopHint;
+    }
+    setWindowFlags(wFlag);
+    this->show();
+}
 
 
 //버튼목록
