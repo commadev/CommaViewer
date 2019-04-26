@@ -92,7 +92,7 @@ background:rgba(0,0,0,.0)
      <number>5</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnQuit">
+   <widget class="QPushButton" name="btnClose">
     <property name="geometry">
      <rect>
       <x>530</x>
@@ -111,13 +111,13 @@ background:rgba(0,0,0,.0)
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="imgQuit">
+   <widget class="QLabel" name="imgClose">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>90</y>
-      <width>101</width>
-      <height>81</height>
+      <x>550</x>
+      <y>70</y>
+      <width>41</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -209,12 +209,177 @@ background:rgba(0,0,0,.0)
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="imgMaximize">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>40</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+    </property>
+    <property name="margin">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnMinimize">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>50</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border:0px;
+background:rgba(0,0,0,.0)
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imgMinimize">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>40</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+    </property>
+    <property name="margin">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnMaximize">
+    <property name="geometry">
+     <rect>
+      <x>569</x>
+      <y>80</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border:0px;
+background:rgba(0,0,0,.0)
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imgList">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>0</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+    </property>
+    <property name="margin">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnList">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>0</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border:0px;
+background:rgba(0,0,0,.0)
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>verticalFrame</zorder>
    <zorder>txtTitle</zorder>
    <zorder>btnPrevious</zorder>
    <zorder>btnNext</zorder>
-   <zorder>imgQuit</zorder>
-   <zorder>btnQuit</zorder>
+   <zorder>imgClose</zorder>
+   <zorder>btnClose</zorder>
+   <zorder>imgMaximize</zorder>
+   <zorder>btnMinimize</zorder>
+   <zorder>imgMinimize</zorder>
+   <zorder>btnMaximize</zorder>
+   <zorder>imgList</zorder>
+   <zorder>btnList</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

@@ -46,7 +46,13 @@ private slots:
 
     void unview();
 
-    void on_btnQuit_clicked();
+    void on_btnClose_clicked();
+
+    void on_btnMaximize_clicked();
+
+    void on_btnMinimize_clicked();
+
+    void on_btnList_clicked();
 
     void alwaysOnTop();
 
