@@ -5,5 +5,8 @@
         <file>myapp.png</file>
         <file>right.png</file>
         <file>x.png</file>
+        <file>C:/Users/Kaloula/Pictures/list.png</file>
+        <file>C:/Users/Kaloula/Pictures/maximize.png</file>
+        <file>C:/Users/Kaloula/Pictures/minimize.png</file>
     </qresource>
 </RCC>

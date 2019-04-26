@@ -169,12 +169,12 @@ void MainWindow::resizeEvent(QResizeEvent *)
 
     ui->btnClose->setGeometry(this->geometry().width()-30,0,30,30); //임시
     ui->imgClose->setGeometry(this->geometry().width()-30,0,30,30); //임시
-    ui->btnMaximize->setGeometry(this->geometry().width()-60,0,30,30); //임시
-    ui->imgMaximize->setGeometry(this->geometry().width()-60,0,30,30); //임시
-    ui->btnMinimize->setGeometry(this->geometry().width()-90,0,30,30); //임시
-    ui->imgMinimize->setGeometry(this->geometry().width()-90,0,30,30); //임시
-    ui->btnList->setGeometry(this->geometry().width()-120,0,30,30); //임시
-    ui->imgList->setGeometry(this->geometry().width()-120,0,30,30); //임시
+    ui->btnMaximize->setGeometry(this->geometry().width()-50,0,30,30); //임시
+    ui->imgMaximize->setGeometry(this->geometry().width()-50,0,30,30); //임시
+    ui->btnMinimize->setGeometry(this->geometry().width()-70,0,30,30); //임시
+    ui->imgMinimize->setGeometry(this->geometry().width()-70,0,30,30); //임시
+    ui->btnList->setGeometry(this->geometry().width()-90,0,30,30); //임시
+    ui->imgList->setGeometry(this->geometry().width()-90,0,30,30); //임시
 
 
     //ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);

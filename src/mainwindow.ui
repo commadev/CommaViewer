@@ -93,14 +93,6 @@ background:rgba(0,0,0,.0)
     </property>
    </widget>
    <widget class="QPushButton" name="btnClose">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>0</y>
-      <width>80</width>
-      <height>23</height>
-     </rect>
-    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
 border:0px;
