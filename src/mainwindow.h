@@ -52,6 +52,8 @@ private slots:
 
     void on_btnMinimize_clicked();
 
+    void on_btnFullScreen_clicked();
+
     void on_btnList_clicked();
 
     void alwaysOnTop();

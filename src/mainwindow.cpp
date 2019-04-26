@@ -29,9 +29,10 @@ MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
     ui->btnNext->setCursor(QPixmap(":/imgs/right.png"));
     ui->btnPrevious->setCursor(QPixmap(":/imgs/left.png"));
     ui->imgClose->setPixmap(QPixmap(":/imgs/x.png")); //임시
-    ui->imgMaximize->setPixmap(QPixmap(":/imgs/x.png")); //임시
-    ui->imgMinimize->setPixmap(QPixmap(":/imgs/x.png")); //임시
-    ui->imgList->setPixmap(QPixmap(":/imgs/x.png")); //임시
+    ui->imgMaximize->setPixmap(QPixmap(":/imgs/maximize.png")); //임시
+    ui->imgMinimize->setPixmap(QPixmap(":/imgs/minimize.png")); //임시
+    ui->imgFullScreen->setPixmap(QPixmap(":/imgs/fullscreen.png")); //임시
+    ui->imgList->setPixmap(QPixmap(":/imgs/list.png")); //임시
 
     //키이벤트 -> Previous, Next버튼 호출
     new QShortcut(QKeySequence(Qt::Key_Left), this, SLOT(on_btnPrevious_clicked()));
@@ -167,14 +168,16 @@ void MainWindow::resizeEvent(QResizeEvent *)
     ui->verticalFrame->setGeometry(0,20,this->geometry().width(),this->geometry().height()-20);
     //ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
 
-    ui->btnClose->setGeometry(this->geometry().width()-30,0,30,30); //임시
-    ui->imgClose->setGeometry(this->geometry().width()-30,0,30,30); //임시
-    ui->btnMaximize->setGeometry(this->geometry().width()-50,0,30,30); //임시
-    ui->imgMaximize->setGeometry(this->geometry().width()-50,0,30,30); //임시
-    ui->btnMinimize->setGeometry(this->geometry().width()-70,0,30,30); //임시
-    ui->imgMinimize->setGeometry(this->geometry().width()-70,0,30,30); //임시
-    ui->btnList->setGeometry(this->geometry().width()-90,0,30,30); //임시
-    ui->imgList->setGeometry(this->geometry().width()-90,0,30,30); //임시
+    ui->btnClose->setGeometry(this->geometry().width()-20,0,20,20); //임시
+    ui->imgClose->setGeometry(this->geometry().width()-20,0,20,20); //임시
+    ui->btnMaximize->setGeometry(this->geometry().width()-40,0,20,20); //임시
+    ui->imgMaximize->setGeometry(this->geometry().width()-40,0,20,20); //임시
+    ui->btnMinimize->setGeometry(this->geometry().width()-60,0,20,20); //임시
+    ui->imgMinimize->setGeometry(this->geometry().width()-60,0,20,20); //임시
+    ui->btnFullScreen->setGeometry(this->geometry().width()-80,0,20,20);
+    ui->imgFullScreen->setGeometry(this->geometry().width()-80,0,20,20); //임시
+    ui->btnList->setGeometry(this->geometry().width()-100,0,20,20); //임시
+    ui->imgList->setGeometry(this->geometry().width()-100,0,20,20); //임시
 
 
     //ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
@@ -240,6 +243,8 @@ void MainWindow::view()
     ui->imgMaximize->hide();
     ui->btnMinimize->hide();
     ui->imgMinimize->hide();
+    ui->btnFullScreen->hide();
+    ui->imgFullScreen->hide();
     ui->btnList->hide();
     ui->imgList->hide();
     ui->btnNext->hide();
@@ -263,6 +268,8 @@ void MainWindow::unview()
     ui->imgMaximize->show();
     ui->btnMinimize->show();
     ui->imgMinimize->show();
+    ui->btnFullScreen->hide();
+    ui->imgFullScreen->hide();
     ui->btnList->show();
     ui->imgList->show();
     ui->btnNext->show();
@@ -348,13 +355,29 @@ void MainWindow::on_btnClose_clicked()
 }
 void MainWindow::on_btnMaximize_clicked()
 {
-    this->close();
+
+    if(this->isMaximized())
+    {
+        this->showNormal();
+    }
+    else
+    {
+        this->showMaximized();
+    }
+
 }
 void MainWindow::on_btnMinimize_clicked()
 {
-    this->close();
+    this->showMinimized();
 }
+
+void MainWindow::on_btnFullScreen_clicked()
+{
+    this->showFullScreen();
+}
+
 void MainWindow::on_btnList_clicked()
 {
     this->close();
 }
+

@@ -93,6 +93,17 @@ background:rgba(0,0,0,.0)
     </property>
    </widget>
    <widget class="QPushButton" name="btnClose">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>32</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>SizeVerCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
 border:0px;
@@ -244,6 +255,9 @@ background:rgba(0,0,0,.0)
       <height>31</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>SizeVerCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
 border:0px;
@@ -257,8 +271,8 @@ background:rgba(0,0,0,.0)
    <widget class="QLabel" name="imgMinimize">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>40</y>
+      <x>520</x>
+      <y>10</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -296,6 +310,9 @@ background:rgba(0,0,0,.0)
       <width>31</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>SizeHorCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
@@ -350,6 +367,65 @@ background:rgba(0,0,0,.0)
       <height>31</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>SizeHorCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border:0px;
+background:rgba(0,0,0,.0)
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imgFullScreen">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>0</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+    </property>
+    <property name="margin">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnFullScreen">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>0</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>SizeHorCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
 border:0px;
@@ -367,11 +443,13 @@ background:rgba(0,0,0,.0)
    <zorder>imgClose</zorder>
    <zorder>btnClose</zorder>
    <zorder>imgMaximize</zorder>
-   <zorder>btnMinimize</zorder>
    <zorder>imgMinimize</zorder>
    <zorder>btnMaximize</zorder>
    <zorder>imgList</zorder>
    <zorder>btnList</zorder>
+   <zorder>btnMinimize</zorder>
+   <zorder>imgFullScreen</zorder>
+   <zorder>btnFullScreen</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
