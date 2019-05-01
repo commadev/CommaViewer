@@ -10,4 +10,8 @@
         <file>minimize.png</file>
         <file>fullscreen.png</file>
     </qresource>
+    <qresource prefix="/new/prefix1">
+        <file>brush.png</file>
+        <file>Qt_logo.png</file>
+    </qresource>
 </RCC>

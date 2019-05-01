@@ -8,6 +8,7 @@
 #include <QShortcut>
 #include <QWheelEvent>
 #include <QMovie>
+#include "imageitor.h"
 
 
 MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
@@ -378,6 +379,7 @@ void MainWindow::on_btnFullScreen_clicked()
 
 void MainWindow::on_btnList_clicked()
 {
-    this->close();
+    imageitor *editor = new imageitor(this);
+    editor->show();
 }
 
