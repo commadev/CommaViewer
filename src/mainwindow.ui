@@ -92,14 +92,17 @@ background:rgba(0,0,0,.0)
      <number>5</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnQuit">
+   <widget class="QPushButton" name="btnClose">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>0</x>
       <y>0</y>
-      <width>80</width>
-      <height>23</height>
+      <width>32</width>
+      <height>12</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>SizeVerCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
@@ -111,13 +114,13 @@ background:rgba(0,0,0,.0)
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="imgQuit">
+   <widget class="QLabel" name="imgClose">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>90</y>
-      <width>101</width>
-      <height>81</height>
+      <x>550</x>
+      <y>70</y>
+      <width>41</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -145,18 +148,42 @@ background:rgba(0,0,0,.0)
      <number>5</number>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="QFrame" name="verticalFrame">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>210</y>
-      <width>160</width>
-      <height>80</height>
+      <x>90</x>
+      <y>60</y>
+      <width>411</width>
+      <height>321</height>
      </rect>
     </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <property name="sizeConstraint">
       <enum>QLayout::SetNoConstraint</enum>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>3</number>
      </property>
      <item>
       <widget class="QLabel" name="imageView">
@@ -185,12 +212,244 @@ background:rgba(0,0,0,.0)
      </item>
     </layout>
    </widget>
-   <zorder>verticalLayoutWidget</zorder>
+   <widget class="QLabel" name="imgMaximize">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>40</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+    </property>
+    <property name="margin">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnMinimize">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>50</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>SizeVerCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border:0px;
+background:rgba(0,0,0,.0)
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imgMinimize">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>10</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+    </property>
+    <property name="margin">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnMaximize">
+    <property name="geometry">
+     <rect>
+      <x>569</x>
+      <y>80</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>SizeHorCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border:0px;
+background:rgba(0,0,0,.0)
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imgList">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>0</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+    </property>
+    <property name="margin">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnList">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>0</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>SizeHorCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border:0px;
+background:rgba(0,0,0,.0)
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imgFullScreen">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>0</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+    </property>
+    <property name="margin">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnFullScreen">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>0</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>SizeHorCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border:0px;
+background:rgba(0,0,0,.0)
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>verticalFrame</zorder>
    <zorder>txtTitle</zorder>
    <zorder>btnPrevious</zorder>
    <zorder>btnNext</zorder>
-   <zorder>imgQuit</zorder>
-   <zorder>btnQuit</zorder>
+   <zorder>imgClose</zorder>
+   <zorder>btnClose</zorder>
+   <zorder>imgMaximize</zorder>
+   <zorder>imgMinimize</zorder>
+   <zorder>btnMaximize</zorder>
+   <zorder>imgList</zorder>
+   <zorder>btnList</zorder>
+   <zorder>btnMinimize</zorder>
+   <zorder>imgFullScreen</zorder>
+   <zorder>btnFullScreen</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

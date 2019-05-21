@@ -5,5 +5,13 @@
         <file>myapp.png</file>
         <file>right.png</file>
         <file>x.png</file>
+        <file>list.png</file>
+        <file>maximize.png</file>
+        <file>minimize.png</file>
+        <file>fullscreen.png</file>
+    </qresource>
+    <qresource prefix="/new/prefix1">
+        <file>brush.png</file>
+        <file>Qt_logo.png</file>
     </qresource>
 </RCC>

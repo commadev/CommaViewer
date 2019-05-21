@@ -8,6 +8,7 @@
 #include <QShortcut>
 #include <QWheelEvent>
 #include <QMovie>
+#include "imageitor.h"
 
 
 MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
@@ -24,16 +25,23 @@ MainWindow::MainWindow(int isExist, char* filePath[], QWidget *parent) :
     setAttribute(Qt::WA_NoSystemBackground,false);
     ui->verticalLayout->setAlignment(Qt::AlignHCenter); //중앙정렬
 
+
     //버튼 커서아이콘 어플리케이션패스 + 파일명
     ui->btnNext->setCursor(QPixmap(":/imgs/right.png"));
     ui->btnPrevious->setCursor(QPixmap(":/imgs/left.png"));
-    ui->imgQuit->setPixmap(QPixmap(":/imgs/x.png")); //임시
+    ui->imgClose->setPixmap(QPixmap(":/imgs/x.png")); //임시
+    ui->imgMaximize->setPixmap(QPixmap(":/imgs/maximize.png")); //임시
+    ui->imgMinimize->setPixmap(QPixmap(":/imgs/minimize.png")); //임시
+    ui->imgFullScreen->setPixmap(QPixmap(":/imgs/fullscreen.png")); //임시
+    ui->imgList->setPixmap(QPixmap(":/imgs/list.png")); //임시
 
     //키이벤트 -> Previous, Next버튼 호출
     new QShortcut(QKeySequence(Qt::Key_Left), this, SLOT(on_btnPrevious_clicked()));
     new QShortcut(QKeySequence(Qt::Key_Right), this, SLOT(on_btnNext_clicked()));
     new QShortcut(QKeySequence(Qt::Key_F7), this, SLOT(view()));
     new QShortcut(QKeySequence(Qt::Key_F8), this, SLOT(unview()));
+    new QShortcut(QKeySequence(Qt::Key_F6), this, SLOT(alwaysOnTop()));
+
 
     //argc가 1이면 (인자없이 실행되면) 다이얼로그 실행
     if (isExist == 1)
@@ -106,31 +114,48 @@ void MainWindow::setImage(QFileInfo targetFile)
     if(targetFile.suffix() == "gif")
     {
         mov = new QMovie(targetFile.filePath());
-        ui->imageView->setMovie(mov);
-        //이미지 창에 맞춤
-        ui->imageView->setScaledContents(false);
-
-        //임시로 사이즈변경을 위해 Pixmap으로도 불러옴
         buf.load(targetFile.filePath());
+        ui->imageView->setFixedSize(buf.size());
+
+        ui->imageView->setMovie(mov);
+
 
         mov->start();
         bufSize = buf.size();
-
+        ui->imageView->setScaledContents(true);
     }
     else
     {
         img.load(targetFile.filePath());
         buf = QPixmap::fromImage(img);
 
+        ui->imageView->setFixedSize(img.size());
         ui->imageView->setPixmap(buf);
-        ui->imageView->setScaledContents(false);
+        bufSize = buf.size();
+        ui->imageView->setScaledContents(true);
 
         //이미지를 창에맞춤 비율유지
-        ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
-        bufSize = buf.size();
-
+        //ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
     }
 
+
+    bufResize = bufSize;
+    if(mov != nullptr)
+    {
+        if(bufSize.width() + 30 > ui->verticalFrame->width() || bufSize.height() + 30 > ui->verticalFrame->height())
+        {
+            bufResize.scale(ui->verticalFrame->width() - 30 , ui->verticalFrame->height() - 30, Qt::KeepAspectRatio);
+            ui->imageView->setFixedSize(bufResize);
+            ui->imageView->setMovie(mov);
+        }
+    }
+    else if(bufSize.width() + 30 > ui->verticalFrame->width() || bufSize.height() + 30 > ui->verticalFrame->height())
+    {
+        bufResize.scale(ui->verticalFrame->width() - 30, ui->verticalFrame->height() - 30, Qt::KeepAspectRatio);
+        ui->imageView->setFixedSize(bufResize);
+        ui->imageView->setPixmap(buf);
+        //ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
+    }
 
 }
 
@@ -139,29 +164,43 @@ void MainWindow::setImage(QFileInfo targetFile)
 void MainWindow::resizeEvent(QResizeEvent *)
 {
 
-    ui->verticalLayoutWidget->setGeometry(QRect(0,30,this->geometry().width(),this->geometry().height()-50));
+    bufResize = bufSize;
+    //ui->verticalLayoutWidget->setGeometry(QRect(0,30,this->geometry().width(),this->geometry().height()-50));
+    ui->verticalFrame->setGeometry(0,20,this->geometry().width(),this->geometry().height()-20);
+    //ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
 
-    ui->btnQuit->setGeometry(this->geometry().width()-30,0,30,30); //임시
-    ui->imgQuit->setGeometry(this->geometry().width()-30,0,30,30); //임시
+    ui->btnClose->setGeometry(this->geometry().width()-20,0,20,20); //임시
+    ui->imgClose->setGeometry(this->geometry().width()-20,0,20,20); //임시
+    ui->btnMaximize->setGeometry(this->geometry().width()-40,0,20,20); //임시
+    ui->imgMaximize->setGeometry(this->geometry().width()-40,0,20,20); //임시
+    ui->btnMinimize->setGeometry(this->geometry().width()-60,0,20,20); //임시
+    ui->imgMinimize->setGeometry(this->geometry().width()-60,0,20,20); //임시
+    ui->btnFullScreen->setGeometry(this->geometry().width()-80,0,20,20);
+    ui->imgFullScreen->setGeometry(this->geometry().width()-80,0,20,20); //임시
+    ui->btnList->setGeometry(this->geometry().width()-100,0,20,20); //임시
+    ui->imgList->setGeometry(this->geometry().width()-100,0,20,20); //임시
 
-    ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
+
+    //ui->imageView->setGeometry(0,20,this->geometry().width(),this->geometry().height()-30);
     ui->btnPrevious->setGeometry(0, 30, this->geometry().width()/2, this->geometry().height()-50);
     ui->btnNext->setGeometry(this->geometry().width()/2, 30, this->geometry().width()/2, this->geometry().height()-50);
     ui->txtTitle->setGeometry(0, 0, 200, 30);
 
     if(mov != nullptr)
     {
-        if(mov->scaledSize().width() + 30 > ui->verticalLayoutWidget->width() || mov->scaledSize().height() + 30 > ui->verticalLayoutWidget->height())
+        if(bufSize.width() + 30 > ui->verticalFrame->width() || bufSize.height() + 30 > ui->verticalFrame->height())
         {
-            bufSize.scale(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio);
-            mov->setScaledSize(bufSize);
-            //mov->setScaledSize(QSize(QSize().scale(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio)));
+            bufResize.scale(ui->verticalFrame->width() - 30 , ui->verticalFrame->height() - 30, Qt::KeepAspectRatio);
+            ui->imageView->setFixedSize(bufResize);
             ui->imageView->setMovie(mov);
         }
     }
-    else if(buf.width() + 30 > ui->verticalLayoutWidget->width() || buf.height() + 30 > ui->verticalLayoutWidget->height())
+    else if(bufSize.width() + 30 > ui->verticalFrame->width() || bufSize.height() + 30 > ui->verticalFrame->height())
     {
-        ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
+        bufResize.scale(ui->verticalFrame->width() - 30, ui->verticalFrame->height() - 30, Qt::KeepAspectRatio);
+        ui->imageView->setFixedSize(bufResize);
+        ui->imageView->setPixmap(buf);
+        //ui->imageView->setPixmap(buf.scaled(this->width() - 30 , this->height() - 30, Qt::KeepAspectRatio));
     }
 
 }
@@ -173,24 +212,18 @@ void MainWindow::wheelEvent(QWheelEvent *event)
 
     QPoint numDegrees = event->angleDelta() / 8;
 
-    if(numDegrees.ry() > 0 && (ui->verticalLayoutWidget->width() < bufSize.width() +30 || ui->verticalLayoutWidget->height() < bufSize.height()+30) )
+    bufSize.scale(ui->imageView->size().width() + numDegrees.ry(), ui->imageView->size().height() + numDegrees.ry(),Qt::KeepAspectRatio);
+    ui->imageView->setFixedSize(bufSize);
+    /*
+    if(numDegrees.ry() > 0 && (ui->verticalFrame->width() < ui->imageView->size().width() +30 || ui->verticalFrame->height() < ui->imageView->size().height()+30) )
     {
-        buf.size() = ui->verticalLayoutWidget->size();
+
     }
     else if (!numDegrees.isNull())
     {
 
-        bufSize.scale(bufSize.width() + numDegrees.ry(),bufSize.height() + numDegrees.ry(),Qt::KeepAspectRatio);
-        if(mov != nullptr)
-        {
-            mov->setScaledSize(bufSize);
-            ui->imageView->setMovie(mov);
-        }
-        else
-        {
-            ui->imageView->setPixmap(buf.scaled(bufSize));
-        }
     }
+    */
     event->accept();
 }
 
@@ -205,8 +238,16 @@ void MainWindow::view()
 {
     ui->txtTitle->hide();
     ui->statusBar->hide();
-    ui->btnQuit->hide();
-    ui->imgQuit->hide();
+    ui->btnClose->hide();
+    ui->imgClose->hide();
+    ui->btnMaximize->hide();
+    ui->imgMaximize->hide();
+    ui->btnMinimize->hide();
+    ui->imgMinimize->hide();
+    ui->btnFullScreen->hide();
+    ui->imgFullScreen->hide();
+    ui->btnList->hide();
+    ui->imgList->hide();
     ui->btnNext->hide();
     ui->btnPrevious->hide();
 
@@ -222,8 +263,16 @@ void MainWindow::unview()
 {
     ui->txtTitle->show();
     ui->statusBar->show();
-    ui->btnQuit->show();
-    ui->imgQuit->show();
+    ui->btnClose->show();
+    ui->imgClose->show();
+    ui->btnMaximize->show();
+    ui->imgMaximize->show();
+    ui->btnMinimize->show();
+    ui->imgMinimize->show();
+    ui->btnFullScreen->hide();
+    ui->imgFullScreen->hide();
+    ui->btnList->show();
+    ui->imgList->show();
     ui->btnNext->show();
     ui->btnPrevious->show();
 
@@ -232,11 +281,25 @@ void MainWindow::unview()
     repaint();
 }
 
+void MainWindow::alwaysOnTop()
+{
+
+    Qt::WindowFlags wFlag = windowFlags();
 
 
+    if (wFlag != -2012940287)
+    {
+        wFlag |= Qt:: WindowStaysOnTopHint;
+        //ui->imageView->setText((QString)wFlag);
 
-
-
+    }
+    else
+    {
+        wFlag &= ~Qt:: WindowStaysOnTopHint;
+    }
+    setWindowFlags(wFlag);
+    this->show();
+}
 
 
 //버튼목록
@@ -287,7 +350,36 @@ void MainWindow::on_btnNext_clicked()
     setImage(targetFile);
 }
 
-void MainWindow::on_btnQuit_clicked()
+void MainWindow::on_btnClose_clicked()
 {
     this->close();
 }
+void MainWindow::on_btnMaximize_clicked()
+{
+
+    if(this->isMaximized())
+    {
+        this->showNormal();
+    }
+    else
+    {
+        this->showMaximized();
+    }
+
+}
+void MainWindow::on_btnMinimize_clicked()
+{
+    this->showMinimized();
+}
+
+void MainWindow::on_btnFullScreen_clicked()
+{
+    this->showFullScreen();
+}
+
+void MainWindow::on_btnList_clicked()
+{
+    imageitor *editor = new imageitor(this);
+    editor->show();
+}
+

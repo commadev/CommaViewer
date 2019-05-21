@@ -46,8 +46,17 @@ private slots:
 
     void unview();
 
+    void on_btnClose_clicked();
 
-    void on_btnQuit_clicked();
+    void on_btnMaximize_clicked();
+
+    void on_btnMinimize_clicked();
+
+    void on_btnFullScreen_clicked();
+
+    void on_btnList_clicked();
+
+    void alwaysOnTop();
 
 private:
     Ui::MainWindow *ui;
@@ -58,6 +67,7 @@ private:
     QFileInfo targetFileN;
     QImage img;
     QSize bufSize;
+    QSize bufResize;
 
 };
 

@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = untitled
+TARGET = ImageViewer
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -26,14 +26,28 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        imageitor.cpp \
+        paintscene.cpp \
+        rgb_changer.cpp \
+        image_resizer.cpp \
+        option.cpp
 
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+        imageitor.h \
+        paintscene.h \
+        rgb_changer.h \
+        image_resizer.h \
+        option.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+        imageitor.ui \
+        rgb_changer.ui \
+        image_resizer.ui \
+        option.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
